@@ -1,0 +1,34 @@
+name: matches-app
+
+services:
+  app:
+    image: 'docker-spring-boot-image'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sports
+      - SPRING_DATASOURCE_USERNAME=bookie
+      - SPRING_DATASOURCE_PASSWORD=bookie456&
+    ports:
+      - "80:80"
+    networks:
+      - matches-app
+
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_USER=bookie
+      - POSTGRES_PASSWORD=bookie456&
+      - POSTGRES_DB=sports
+    ports:
+      - "5438:5432"
+    networks:
+      - matches-app
+
+networks:
+  matches-app:
+    driver: bridge
