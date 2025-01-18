@@ -1,0 +1,13 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 2
+       author: mzacharopoulou
+       preConditions:
+         - onFail: CONTINUE
+         - tableExists:
+             tableName: match
+         - tableExists:
+             tableName: match_odds
+       changes:
+         - sqlFile:
+             path: "/db/changelog/changes-sql/createSchema.sql"
