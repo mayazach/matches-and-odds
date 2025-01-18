@@ -1,0 +1,14 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 2
+       author: mzacharopoulou
+       labels: 'dev'
+       preConditions:
+         - onFail: CONTINUE
+         - tableExists:
+             tableName: match
+         - tableExists:
+             tableName: match_odds
+       changes:
+         - sqlFile:
+             path: "/db/changelog/sql/addData.sql"

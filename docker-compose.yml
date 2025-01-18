@@ -12,6 +12,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sports
       - SPRING_DATASOURCE_USERNAME=bookie
       - SPRING_DATASOURCE_PASSWORD=bookie456&
+      - SPRING_LIQUIBASE_LABEL_FILTER=dev
     ports:
       - "80:80"
     networks:

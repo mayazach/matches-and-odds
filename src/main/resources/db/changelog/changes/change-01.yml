@@ -1,0 +1,7 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 1
+       author: mzacharopoulou
+       changes:
+         - sqlFile:
+             path: "/db/changelog/sql/createSchema.sql"
