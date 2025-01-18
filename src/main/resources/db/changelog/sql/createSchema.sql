@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS match (
     match_time TIME,
     team_a VARCHAR(255),
     team_b VARCHAR(255),
-    sport SMALLINT CHECK ( sport BETWEEN 0 AND 1)
+    sport SMALLINT CHECK ( sport BETWEEN 1 AND 2)
 );
 
 CREATE SEQUENCE IF NOT EXISTS match_odds_id_seq;

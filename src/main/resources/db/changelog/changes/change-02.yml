@@ -2,6 +2,7 @@ databaseChangeLog:
   -  changeSet:
        id: 2
        author: mzacharopoulou
+       labels: 'dev'
        preConditions:
          - onFail: CONTINUE
          - tableExists:
@@ -10,4 +11,4 @@ databaseChangeLog:
              tableName: match_odds
        changes:
          - sqlFile:
-             path: "/db/changelog/changes-sql/createSchema.sql"
+             path: "/db/changelog/sql/addData.sql"
