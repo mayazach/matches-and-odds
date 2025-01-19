@@ -1,12 +1,16 @@
 package com.example.matchodds.controllers;
 
 import com.example.matchodds.dto.MatchDto;
+import com.example.matchodds.dto.MatchOddsDto;
 import com.example.matchodds.entities.Match;
+import com.example.matchodds.entities.MatchOdds;
 import com.example.matchodds.enums.SportsEnum;
+import com.example.matchodds.repos.MatchOddsRepository;
 import com.example.matchodds.repos.MatchRepository;
 import com.example.matchodds.service.MatchService;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -20,14 +24,20 @@ import java.util.Optional;
 @RequestMapping("/matches")
 public class MatchController {
     private final MatchRepository matchRepository;
+
+    private final MatchOddsRepository matchOddsRepository;
     private final MatchService matchService;
+    private final ModelMapper modelMapper;
 
     @Value("${max.result.size}")
     private Integer maxResultSize;
 
-    public MatchController(MatchRepository matchRepository, MatchService matchService) {
+    public MatchController(MatchRepository matchRepository,
+                           MatchService matchService, MatchOddsRepository matchOddsRepository) {
         this.matchRepository = matchRepository;
         this.matchService = matchService;
+        this.modelMapper = new ModelMapper();
+        this.matchOddsRepository = matchOddsRepository;
     }
 
     @GetMapping
@@ -64,6 +74,25 @@ public class MatchController {
     @DeleteMapping(path = "/{matchId}")
     public ResponseEntity<Void> deleteMatch(@PathVariable Long matchId) {
         matchRepository.deleteById(matchId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping(path = "/odds/{matchId}")
+    public ResponseEntity<MatchOdds> postOdds(@PathVariable Long matchId, @RequestBody MatchOddsDto odds){
+        MatchOdds matchOddsEntity = modelMapper.map(odds, MatchOdds.class);
+        return matchService.postOdds(matchId, matchOddsEntity);
+    }
+
+    @PutMapping(path = "/{oddsId}")
+    public ResponseEntity<MatchOdds> putMatch(@RequestBody MatchOddsDto odds, @PathVariable Long oddsId)
+            throws BadRequestException {
+        MatchOdds matchOddsEntity = modelMapper.map(odds, MatchOdds.class);
+        return matchService.putOdds(oddsId, matchOddsEntity);
+    }
+
+    @DeleteMapping(path = "/{oddsId}")
+    public ResponseEntity<Void> deleteOdds(@PathVariable Long oddsId) {
+        matchOddsRepository.deleteById(oddsId);
         return ResponseEntity.noContent().build();
     }
 }
