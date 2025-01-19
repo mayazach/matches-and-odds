@@ -84,8 +84,7 @@ public class MatchController {
     }
 
     @PutMapping(path = "/{oddsId}")
-    public ResponseEntity<MatchOdds> putMatch(@RequestBody MatchOddsDto odds, @PathVariable Long oddsId)
-            throws BadRequestException {
+    public ResponseEntity<MatchOdds> putMatch(@RequestBody MatchOddsDto odds, @PathVariable Long oddsId) {
         MatchOdds matchOddsEntity = modelMapper.map(odds, MatchOdds.class);
         return matchService.putOdds(oddsId, matchOddsEntity);
     }
