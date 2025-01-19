@@ -13,9 +13,9 @@ import jakarta.validation.constraints.Pattern;
 @Setter
 public class MatchDto {
     private String description;
-    @Pattern(regexp = "^\\d{2}/\\d{2}/\\d{4}$", message = "Date must be in the format dd/MM/yyyy")
+    @Pattern(regexp = "(0[1-9]|[12]\\d|3[01])/(0[1-9]|1[0,1,2])/(19|20)\\d{2}", message = "Date must be in the format dd/MM/yyyy")
     private String matchDate;
-    @Pattern(regexp = "^\\d{2}:\\d{2}$", message = "Time must be in the format HH24:MI")
+    @Pattern(regexp = "^([0-1]?\\d|2[0-3]):[0-5]\\d$", message = "Time must be in the format HH24:MI")
     private String matchTime;
     private String teamA;
     private String teamB;

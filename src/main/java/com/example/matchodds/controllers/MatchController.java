@@ -8,6 +8,7 @@ import com.example.matchodds.enums.SportsEnum;
 import com.example.matchodds.repos.MatchOddsRepository;
 import com.example.matchodds.repos.MatchRepository;
 import com.example.matchodds.service.MatchService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
@@ -48,6 +49,7 @@ public class MatchController {
         return ResponseEntity.ok(matchRepository.findAll(PageRequest.of(pageNumber, pageSize)).getContent());
     }
 
+    @Operation(summary = "Get a product by id", description = "Returns a product as per the id")
     @GetMapping(path = "/{matchId}")
     public ResponseEntity<Match> getMatch(@PathVariable Long matchId) {
         Optional<Match> match = matchRepository.findById(matchId);
@@ -83,13 +85,13 @@ public class MatchController {
         return matchService.postOdds(matchId, matchOddsEntity);
     }
 
-    @PutMapping(path = "/{oddsId}")
+    @PutMapping(path = "odds/{oddsId}")
     public ResponseEntity<MatchOdds> putMatch(@RequestBody MatchOddsDto odds, @PathVariable Long oddsId) {
         MatchOdds matchOddsEntity = modelMapper.map(odds, MatchOdds.class);
         return matchService.putOdds(oddsId, matchOddsEntity);
     }
 
-    @DeleteMapping(path = "/{oddsId}")
+    @DeleteMapping(path = "odds/{oddsId}")
     public ResponseEntity<Void> deleteOdds(@PathVariable Long oddsId) {
         matchOddsRepository.deleteById(oddsId);
         return ResponseEntity.noContent().build();

@@ -57,6 +57,7 @@ public class MatchService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             updatedOdds.setId(existingOdds.get().getId());
+            updatedOdds.setMatch(existingOdds.get().getMatch());
         }
         return new ResponseEntity<>(oddsRepository.save(updatedOdds), HttpStatus.OK);
     }
