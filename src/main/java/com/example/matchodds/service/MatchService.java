@@ -67,8 +67,12 @@ public class MatchService {
         match.setDescription(matchDto.getDescription());
         match.setTeamA(matchDto.getTeamA());
         match.setTeamB(matchDto.getTeamB());
-        match.setMatchDate(LocalDate.parse(matchDto.getMatchDate(), dateFormatter));
-        match.setMatchTime(LocalTime.parse(matchDto.getMatchTime(), timeFormatter));
+        if (matchDto.getMatchDate() != null) {
+            match.setMatchDate(LocalDate.parse(matchDto.getMatchDate(), dateFormatter));
+        }
+        if (matchDto.getMatchTime() != null) {
+            match.setMatchTime(LocalTime.parse(matchDto.getMatchTime(), timeFormatter));
+        }
         match.setSport(matchDto.getSport());
         return match;
     }

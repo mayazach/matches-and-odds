@@ -1,6 +1,7 @@
 package com.example.matchodds.entities;
 
 import com.example.matchodds.enums.SportsEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Match extends BaseEntity {
     private String teamB;
     @Column(name = "sport")
     @Enumerated(EnumType.ORDINAL)
+    @Schema(name = "Sport", description = "Football (FOOTBALL) or basketball (BASKETBALL)", example = "FOOTBALL")
     private SportsEnum sport;
 
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
