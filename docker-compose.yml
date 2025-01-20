@@ -5,8 +5,6 @@ services:
     build:
       context: .
     container_name: app
-    depends_on:
-      - db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/sports
       - SPRING_DATASOURCE_USERNAME=bookie
@@ -14,6 +12,8 @@ services:
       - SPRING_LIQUIBASE_LABEL_FILTER=dev
     ports:
       - "8080:8080"
+    depends_on:
+      - db
     networks:
       - matches-app
 
@@ -26,6 +26,8 @@ services:
       - POSTGRES_DB=sports
     ports:
       - "5438:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     networks:
       - matches-app
 
