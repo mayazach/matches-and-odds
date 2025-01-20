@@ -53,7 +53,7 @@ public class MatchController {
     @GetMapping
     public ResponseEntity<List<Match>> getMatches(@Parameter(name = "page", description = "Page number", example = "0")
                                                       @RequestParam(required = false) Integer page,
-                                                  @Parameter(name = "size", description = "Page size", example = "10")
+                                                  @Parameter(name = "size", description = "Page size (if larger than 500 set to 500)", example = "10")
                                                   @RequestParam(required = false) Integer size) {
         int pageNumber = (page == null || page < 0 ? 0 : page);
         int pageSize = (size == null || size < 0 || size > maxResultSize ? maxResultSize : size);
